@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="سوق سبدو">
+<title>سوق سبدو</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sand: #F5ECD7;
+  --sand2: #EDE0C4;
+  --sand3: #E0CFA8;
+  --cream: #FAF6EE;
+  --green: #2D5A27;
+  --green2: #3D7A35;
+  --green3: #4E9A44;
+  --green-light: #E8F5E3;
+  --terracotta: #C45C26;
+  --terracotta2: #E07040;
+  --gold: #B8860B;
+  --gold2: #D4A017;
+  --text: #1C1C1C;
+  --text2: #4A4A4A;
+  --muted: #9A8F7E;
+  --white: #FFFDF8;
+  --shadow: rgba(44,44,44,0.1);
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; }
+body { font-family:'Cairo',sans-serif; background:var(--cream); color:var(--text); direction:rtl; min-height:100vh; }
+body::before { content:''; position:fixed; inset:0; background-image: radial-gradient(circle at 20% 20%, rgba(45,90,39,0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(196,92,38,0.03) 0%, transparent 50%); pointer-events:none; z-index:0; }
+.navbar { background:var(--green); padding:0 18px; display:flex; align-items:center; justify-content:space-between; height:58px; position:sticky; top:0; z-index:1000; box-shadow:0 4px 20px rgba(45,90,39,0.3); }
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo-icon { width:36px; height:36px; background:var(--sand); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.logo-text { font-size:19px; font-weight:900; color:var(--sand); }
+.logo-text b { color:var(--sand3); }
+.add-btn { background:var(--terracotta); border:none; border-radius:10px; padding:8px 14px; color:#fff; font-family:'Cairo',sans-serif; font-size:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:5px; box-shadow:0 3px 12px rgba(196,92,38,0.4); transition:all 0.2s; }
+.add-btn:active { transform:scale(0.96); }
+.hero { background:var(--green); padding:32px 18px 40px; position:relative; overflow:hidden; }
+.hero-pattern { position:absolute; inset:0; opacity:0.04; background-image: repeating-linear-gradient(45deg, var(--sand) 0px, var(--sand) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(-45deg, var(--sand) 0px, var(--sand) 1px, transparent 1px, transparent 20px); }
+.hero-circle1 { position:absolute; top:-60px; left:-60px; width:200px; height:200px; border-radius:50%; background:rgba(232,245,227,0.06); }
+.hero-circle2 { position:absolute; bottom:-80px; right:-40px; width:250px; height:250px; border-radius:50%; background:rgba(232,245,227,0.04); }
+.hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(245,236,215,0.15); border:1px solid rgba(245,236,215,0.25); border-radius:20px; padding:5px 14px; font-size:11px; color:var(--sand2); margin-bottom:14px; position:relative; }
+.hero-title { font-size:30px; font-weight:900; color:var(--sand); line-height:1.25; margin-bottom:8px; position:relative; letter-spacing:-0.5px; }
+.hero-title .accent { color:var(--terracotta2); }
+.hero-subtitle { font-size:13px; color:rgba(245,236,215,0.7); margin-bottom:24px; line-height:1.7; position:relative; }
+.search-bar { background:var(--white); border-radius:14px; padding:5px 5px 5px 14px; display:flex; align-items:center; gap:10px; position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.2); }
+.search-bar input { flex:1; background:none; border:none; outline:none; font-family:'Cairo',sans-serif; font-size:14px; color:var(--text); }
+.search-bar input::placeholder { color:var(--muted); }
+.search-bar button { background:var(--terracotta); border:none; border-radius:10px; padding:10px 20px; color:#fff; font-family:'Cairo',sans-serif; font-size:13px; font-weight:800; cursor:pointer; }
+.hero-pills { display:flex; gap:8px; margin-top:20px; flex-wrap:wrap; position:relative; }
+.pill { background:rgba(245,236,215,0.12); border:1px solid rgba(245,236,215,0.2); border-radius:20px; padding:5px 12px; font-size:11px; color:rgba(245,236,215,0.8); cursor:pointer; transition:all 0.2s; }
+.hero-stats { display:flex; gap:20px; margin-top:24px; position:relative; }
+.hstat { text-align:right; }
+.hstat-num { font-size:22px; font-weight:900; color:var(--sand); }
+.hstat-label { font-size:10px; color:rgba(245,236,215,0.6); }
+.hstat-div { width:1px; background:rgba(245,236,215,0.15); }
+.wave { height:30px; background:var(--cream); clip-path:ellipse(55% 100% at 50% 100%); margin-top:-1px; }
+.section { padding:20px 18px 0; position:relative; z-index:1; }
+.sh { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.sh-title { font-size:16px; font-weight:800; color:var(--text); display:flex; align-items:center; gap:8px; }
+.sh-title::before { content:''; width:4px; height:20px; background:var(--terracotta); border-radius:2px; }
+.sh-link { font-size:12px; color:var(--terracotta); font-weight:700; cursor:pointer; }
+.cats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.cat { background:var(--white); border:1.5px solid var(--sand2); border-radius:14px; padding:14px 6px 10px; text-align:center; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 8px var(--shadow); }
+.cat:active { transform:scale(0.95); }
+.cat.on { border-color:var(--green); background:var(--green-light); }
+.cat-i { font-size:26px; margin-bottom:5px; display:block; }
+.cat-n { font-size:9px; font-weight:700; color:var(--text2); }
+.cat-c { font-size:8px; color:var(--muted); margin-top:1px; }
+.promo { margin:18px 18px 0; background:linear-gradient(135deg, var(--terracotta) 0%, #A0401A 100%); border-radius:18px; padding:18px; display:flex; justify-content:space-between; align-items:center; overflow:hidden; position:relative; box-shadow:0 8px 24px rgba(196,92,38,0.3); }
+.promo::before { content:''; position:absolute; top:-40px; left:-40px; width:150px; height:150px; border-radius:50%; background:rgba(255,255,255,0.07); }
+.promo-l .p-tag { font-size:10px; color:rgba(255,255,255,0.7); margin-bottom:4px; }
+.promo-l .p-title { font-size:15px; font-weight:900; color:#fff; }
+.promo-l .p-sub { font-size:10px; color:rgba(255,255,255,0.7); margin-top:3px; }
+.promo-btn { background:#fff; border:none; border-radius:10px; padding:10px 14px; color:var(--terracotta); font-family:'Cairo',sans-serif; font-size:11px; font-weight:800; cursor:pointer; white-space:nowrap; }
+.filters { display:flex; gap:8px; overflow-x:auto; padding:16px 18px 0; scrollbar-width:none; }
+.filters::-webkit-scrollbar { display:none; }
+.ftab { background:var(--white); border:1.5px solid var(--sand2); border-radius:20px; padding:7px 16px; font-size:11px; font-weight:700; font-family:'Cairo',sans-serif; color:var(--muted); cursor:pointer; white-space:nowrap; transition:all 0.2s; }
+.ftab.on { background:var(--green); border-color:var(--green); color:#fff; }
+.ads { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.ad { background:var(--white); border:1.5px solid var(--sand2); border-radius:16px; overflow:hidden; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 10px var(--shadow); }
+.ad:active { transform:scale(0.97); }
+.ad.vip { border-color:var(--gold2); box-shadow:0 4px 16px rgba(184,134,11,0.15); }
+.ad-top { height:112px; display:flex; align-items:center; justify-content:center; font-size:46px; position:relative; background:var(--sand); }
+.ad.vip .ad-top { background:linear-gradient(135deg,#FFF8E1,#FFF0C0); }
+.badge { position:absolute; top:8px; right:8px; border-radius:6px; padding:3px 8px; font-size:9px; font-weight:800; }
+.badge.new { background:#E8F5E3; color:var(--green); }
+.badge.urgent { background:#FEE8D8; color:var(--terracotta); }
+.badge.vip-b { background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#fff; }
+.ad-bot { padding:11px; }
+.ad-name { font-size:12px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:3px; }
+.ad-pr { font-size:15px; font-weight:900; color:var(--green); margin-bottom:5px; }
+.ad-pr.free { color:var(--terracotta); }
+.ad-foot { display:flex; justify-content:space-between; }
+.ad-loc { font-size:9px; color:var(--muted); }
+.ad-t { font-size:9px; color:var(--muted); }
+.cta { margin:22px 18px; background:var(--green); border-radius:20px; padding:24px 20px; text-align:center; position:relative; overflow:hidden; }
+.cta::before { content:'🏺'; position:absolute; left:14px; bottom:-8px; font-size:60px; opacity:0.08; }
+.cta-title { font-size:17px; font-weight:900; color:var(--sand); margin-bottom:5px; }
+.cta-title span { color:var(--terracotta2); }
+.cta-sub { font-size:12px; color:rgba(245,236,215,0.7); margin-bottom:16px; }
+.cta-btn { background:var(--terracotta); border:none; border-radius:12px; padding:13px 30px; color:#fff; font-family:'Cairo',sans-serif; font-size:14px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 20px rgba(196,92,38,0.4); }
+.footer { background:var(--green); padding:28px 18px 32px; text-align:center; margin-top:10px; }
+.ft-logo { font-size:18px; font-weight:900; color:var(--sand); margin-bottom:4px; }
+.ft-sub { font-size:10px; color:rgba(245,236,215,0.5); margin-bottom:14px; }
+.ft-links { display:flex; justify-content:center; gap:20px; margin-bottom:12px; }
+.ft-links a { color:rgba(245,236,215,0.5); font-size:11px; text-decoration:none; }
+.ft-copy { font-size:9px; color:rgba(245,236,215,0.3); }
+.wa { position:fixed; bottom:22px; left:18px; background:#25D366; border-radius:50%; width:50px; height:50px; display:flex; align-items:center; justify-content:center; font-size:24px; cursor:pointer; z-index:900; box-shadow:0 4px 18px rgba(37,211,102,0.4); }
+.overlay { position:fixed; inset:0; background:rgba(28,28,28,0.6); backdrop-filter:blur(6px); z-index:2000; display:none; align-items:flex-end; justify-content:center; }
+.overlay.on { display:flex; }
+.sheet { background:var(--white); border-radius:24px 24px 0 0; border-top:3px solid var(--sand2); width:100%; max-width:480px; max-height:92vh; overflow-y:auto; padding:22px 18px 32px; animation:up 0.3s cubic-bezier(0.34,1.56,0.64,1); position:relative; }
+@keyframes up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.handle { width:36px; height:4px; background:var(--sand2); border-radius:2px; margin:0 auto 18px; }
+.xbtn { position:absolute; top:18px; left:18px; background:var(--sand); border:none; border-radius:50%; width:30px; height:30px; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text2); }
+.det-img { height:150px; border-radius:14px; background:var(--sand); display:flex; align-items:center; justify-content:center; font-size:70px; margin-bottom:14px; }
+.det-title { font-size:20px; font-weight:900; margin-bottom:6px; color:var(--text); }
+.det-price { font-size:26px; font-weight:900; color:var(--green); margin-bottom:12px; }
+.det-desc { font-size:13px; color:var(--text2); line-height:1.8; margin-bottom:14px; }
+.det-info { background:var(--sand); border-radius:12px; padding:14px; margin-bottom:14px; }
+.det-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--sand2); font-size:12px; }
+.det-row:last-child { border:none; }
+.det-lbl { color:var(--muted); }
+.det-val { font-weight:700; color:var(--text); }
+.call-btn { width:100%; background:var(--green-light); border:1.5px solid var(--green); border-radius:14px; padding:14px; color:var(--green); font-family:'Cairo',sans-serif; font-size:14px; font-weight:800; cursor:pointer; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.wa-btn { width:100%; background:#25D366; border:none; border-radius:14px; padding:14px; color:#fff; font-family:'Cairo',sans-serif; font-size:14px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+.form-h { font-size:17px; font-weight:900; color:var(--text); margin-bottom:18px; }
+.fg { margin-bottom:13px; }
+.fl { font-size:12px; font-weight:700; color:var(--text2); margin-bottom:5px; display:block; }
+.fi { width:100%; background:var(--sand); border:1.5px solid var(--sand2); border-radius:12px; padding:12px 14px; font-family:'Cairo',sans-serif; font-size:14px; color:var(--text); outline:none; transition:border 0.2s; }
+.fi:focus { border-color:var(--green); background:#fff; }
+.fta { min-height:85px; resize:vertical; }
+.type-row { display:flex; gap:10px; margin-top:5px; }
+.tcard { flex:1; background:var(--sand); border:2px solid var(--sand2); border-radius:12px; padding:12px 8px; text-align:center; cursor:pointer; transition:all 0.2s; }
+.tcard.on-n { border-color:var(--green); background:var(--green-light); }
+.tcard.on-v { border-color:var(--gold2); background:#FFF8E1; }
+.tcard .ti { font-size:22px; margin-bottom:3px; }
+.tcard .tn { font-size:11px; font-weight:800; color:var(--text); }
+.tcard .tp { font-size:10px; color:var(--muted); margin-top:1px; }
+.sbtn { width:100%; background:var(--green); border:none; border-radius:14px; padding:15px; color:#fff; font-family:'Cairo',sans-serif; font-size:15px; font-weight:800; cursor:pointer; margin-top:10px; box-shadow:0 6px 20px rgba(45,90,39,0.3); }
+.suc { display:none; text-align:center; padding:20px 0; }
+.suc-i { font-size:52px; margin-bottom:12px; }
+.suc h4 { font-size:17px; font-weight:900; color:var(--green); margin-bottom:6px; }
+.suc p { font-size:12px; color:var(--muted); }
+.empty { text-align:center; padding:60px 20px; color:var(--muted); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.ad { animation:fadeUp 0.3s ease both; }
+.photo-upload { border:2px dashed var(--sand2); border-radius:14px; padding:20px; text-align:center; cursor:pointer; background:var(--sand); transition:all 0.2s; position:relative; overflow:hidden; }
+.photo-upload:hover { border-color:var(--green); background:#f0f7ee; }
+.photo-upload input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+.photo-upload-icon { font-size:30px; margin-bottom:6px; }
+.photo-upload-text { font-size:13px; color:var(--text2); font-weight:700; }
+.photo-upload-sub { font-size:10px; color:var(--muted); margin-top:3px; }
+.photo-preview { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.photo-thumb { width:72px; height:72px; border-radius:10px; object-fit:cover; border:2px solid var(--sand2); }
+.video-preview { margin-top:10px; font-size:12px; color:var(--green); font-weight:700; background:var(--green-light); padding:8px 12px; border-radius:10px; }
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="logo" href="#" onclick="showAll()">
+    <div class="logo-icon">🛍️</div>
+    <div class="logo-text">سوق <b>سبدو</b></div>
+  </a>
+  <button class="add-btn" onclick="openPost()">＋ إعلان</button>
+</nav>
+<div class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-circle1"></div>
+  <div class="hero-circle2"></div>
+  <div class="hero-badge">📍 سبدو — تلمسان — الجزائر</div>
+  <div class="hero-title">سوق <span class="accent">سبدو</span><br>الإلكتروني</div>
+  <div class="hero-subtitle">بيع واشتري بكل سهولة مع أهل المنطقة<br>مجاناً وبدون وسيط</div>
+  <div class="search-bar">
+    <span style="color:var(--muted)">🔍</span>
+    <input type="text" id="sinp" placeholder="ابحث عن سيارة، شقة، هاتف...">
+    <button onclick="doSearch()">بحث</button>
+  </div>
+  <div class="hero-pills">
+    <div class="pill" onclick="filterCat('cars',null)">🚗 سيارات</div>
+    <div class="pill" onclick="filterCat('real-estate',null)">🏠 عقارات</div>
+    <div class="pill" onclick="filterCat('electronics',null)">📱 هواتف</div>
+    <div class="pill" onclick="filterCat('livestock',null)">🐄 مواشي</div>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num" id="tc">24</div><div class="hstat-label">إعلان نشط</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><div class="hstat-num">8</div><div class="hstat-label">أقسام</div></div>
+    <div class="hstat-div"></div>
+    <div class="hstat"><div class="hstat-num" style="font-size:14px;padding-top:4px">مجاني</div><div class="hstat-label">النشر</div></div>
+  </div>
+</div>
+<div class="wave"></div>
+<div class="section">
+  <div class="sh"><div class="sh-title">الأقسام</div></div>
+  <div class="cats" id="cats-grid"></div>
+</div>
+<div class="promo">
+  <div class="promo-l">
+    <div class="p-tag">⭐ إعلان مميز VIP</div>
+    <div class="p-title">اجعل إعلانك في القمة!</div>
+    <div class="p-sub">500 دج فقط — وصول أكبر لأهل سبدو</div>
+  </div>
+  <button class="promo-btn" onclick="openPost()">ابدأ الآن</button>
+</div>
+<div class="filters">
+  <button class="ftab on" onclick="filterTab('all',this)">الكل</button>
+  <button class="ftab" onclick="filterTab('vip',this)">⭐ VIP</button>
+  <button class="ftab" onclick="filterTab('new',this)">🆕 الأحدث</button>
+  <button class="ftab" onclick="filterTab('urgent',this)">🔥 عاجل</button>
+  <button class="ftab" onclick="filterTab('free',this)">🎁 مجاني</button>
+</div>
+<div class="section" style="padding-top:16px">
+  <div class="sh">
+    <div class="sh-title" id="atitle">جميع الإعلانات</div>
+    <span class="sh-link" onclick="showAll()">عرض الكل</span>
+  </div>
+  <div class="ads" id="ads-grid"></div>
+  <div class="empty" id="empty" style="display:none">
+    <div style="font-size:48px;margin-bottom:10px">🔍</div>
+    <div>لا توجد إعلانات</div>
+  </div>
+</div>
+<div class="cta">
+  <div class="cta-title">لديك شيء <span>تبيعه؟</span></div>
+  <div class="cta-sub">انشر إعلانك مجاناً وتواصل مع أهل سبدو</div>
+  <button class="cta-btn" onclick="openPost()"><span>＋</span> أضف إعلانك</button>
+</div>
+<div class="footer">
+  <div class="ft-logo">🛍️ سوق سبدو</div>
+  <div class="ft-sub">السوق المحلي الإلكتروني — سبدو، تلمسان</div>
+  <div class="ft-links"><a href="#">عن الموقع</a><a href="#">تواصل معنا</a><a href="#">الخصوصية</a></div>
+  <div class="ft-copy">© 2025 سوق سبدو — جميع الحقوق محفوظة</div>
+</div>
+<div class="wa" onclick="window.open('https://wa.me/213663319735')">💬</div>
+<div class="overlay" id="adM" onclick="closeOv(event,'adM')">
+  <div class="sheet">
+    <button class="xbtn" onclick="closeM('adM')">✕</button>
+    <div class="handle"></div>
+    <div id="adBody"></div>
+  </div>
+</div>
+<div class="overlay" id="postM" onclick="closeOv(event,'postM')">
+  <div class="sheet">
+    <button class="xbtn" onclick="closeM('postM')">✕</button>
+    <div class="handle"></div>
+    <div class="form-h">📢 أضف إعلان جديد</div>
+    <div id="pform">
+      <div class="fg"><label class="fl">القسم *</label>
+        <select class="fi" id="fc"><option value="">اختر القسم...</option><option>🏠 العقارات</option><option>🚗 السيارات</option><option>📱 الإلكترونيات</option><option>👗 الملابس</option><option>🛋️ الأثاث والمنزل</option><option>💼 الوظائف</option><option>🐄 المواشي والزراعة</option><option>🔧 الخدمات</option></select>
+      </div>
+      <div class="fg"><label class="fl">العنوان *</label><input type="text" class="fi" id="ft" placeholder="مثال: شقة للإيجار في سبدو"></div>
+      <div class="fg"><label class="fl">السعر (دج)</label><input type="number" class="fi" id="fp" placeholder="0 = مجاني"></div>
+      <div class="fg"><label class="fl">الوصف *</label><textarea class="fi fta" id="fd" placeholder="وصف تفصيلي..."></textarea></div>
+      <div class="fg"><label class="fl">رقم الهاتف *</label><input type="tel" class="fi" id="fph" placeholder="0550000000"></div>
+      <div class="fg"><label class="fl">الحالة</label>
+        <select class="fi" id="fco"><option>جديد</option><option>مستعمل - ممتاز</option><option>مستعمل - جيد</option><option>مستعمل - مقبول</option></select>
+      </div>
+      <div class="fg">
+        <label class="fl">📸 صور الإعلان (اختياري)</label>
+        <div class="photo-upload">
+          <input type="file" accept="image/*" multiple id="photo-input" onchange="handleMedia(event,'photo')">
+          <div class="photo-upload-icon">🖼️</div>
+          <div class="photo-upload-text">اضغط لإضافة صور</div>
+          <div class="photo-upload-sub">حتى 5 صور — JPG, PNG</div>
+        </div>
+        <div class="photo-preview" id="photo-preview"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">🎥 فيديو الإعلان (اختياري)</label>
+        <div class="photo-upload">
+          <input type="file" accept="video/*" id="video-input" onchange="handleMedia(event,'video')">
+          <div class="photo-upload-icon">📹</div>
+          <div class="photo-upload-text">اضغط لإضافة فيديو</div>
+          <div class="photo-upload-sub">حتى دقيقة واحدة — MP4</div>
+        </div>
+        <div id="video-preview"></div>
+      </div>
+      <div class="fg"><label class="fl">نوع الإعلان</label>
+        <div class="type-row">
+          <div class="tcard on-n" id="tn" onclick="pickT('n')"><div class="ti">📋</div><div class="tn">عادي</div><div class="tp">مجاني</div></div>
+          <div class="tcard" id="tv" onclick="pickT('v')"><div class="ti">⭐</div><div class="tn">مميز VIP</div><div class="tp" style="color:var(--gold)">500 دج</div></div>
+        </div>
+      </div>
+      <button class="sbtn" onclick="submit()">🚀 إرسال للمراجعة</button>
+    </div>
+    <div class="suc" id="suc"><div class="suc-i">✅</div><h4>تم إرسال إعلانك!</h4><p>سيتم مراجعته ونشره من قِبل الإدارة قريباً</p></div>
+  </div>
+</div>
+<script>
+const CATS=[
+  {id:'real-estate',n:'العقارات',i:'🏠',c:5},
+  {id:'cars',n:'السيارات',i:'🚗',c:4},
+  {id:'electronics',n:'الإلكترونيات',i:'📱',c:6},
+  {id:'clothes',n:'الملابس',i:'👗',c:3},
+  {id:'furniture',n:'الأثاث',i:'🛋️',c:4},
+  {id:'jobs',n:'الوظائف',i:'💼',c:2},
+  {id:'livestock',n:'المواشي',i:'🐄',c:3},
+  {id:'services',n:'الخدمات',i:'🔧',c:4},
+];
+const ADS=[
+  {id:1,cat:'real-estate',name:'شقة للإيجار — سبدو وسط',price:15000,unit:'دج/شهر',e:'🏠',b:'new',bl:'جديد',vip:false,desc:'شقة 3 غرف + صالون + مطبخ، الطابق الثاني، قريبة من السوق المركزي، مفروشة جزئياً.',co:'جيدة',ph:'0550123456',sl:'أحمد بن علي',t:'منذ ساعتين'},
+  {id:2,cat:'cars',name:'بيجو 206 موديل 2008',price:350000,unit:'دج',e:'🚗',b:'urgent',bl:'عاجل',vip:true,desc:'بيجو 206، موديل 2008، لون أبيض، 150,000 كم، حالة جيدة.',co:'مستعمل جيد',ph:'0660987654',sl:'يوسف مسعودي',t:'منذ 3 ساعات'},
+  {id:3,cat:'electronics',name:'آيفون 13 — 128GB',price:85000,unit:'دج',e:'📱',b:'new',bl:'جديد',vip:true,desc:'آيفون 13 أزرق، 128GB، مع علبته الأصلية، استعمال 6 أشهر.',co:'مستعمل ممتاز',ph:'0770456789',sl:'سارة خالدي',t:'منذ 5 ساعات'},
+  {id:4,cat:'furniture',name:'غرفة نوم كاملة',price:120000,unit:'دج',e:'🛋️',b:'',bl:'',vip:false,desc:'غرفة نوم 6 قطع، لون خشبي فاتح، استعمال سنتين.',co:'مستعمل ممتاز',ph:'0550789012',sl:'فاطمة زهراء',t:'أمس'},
+  {id:5,cat:'livestock',name:'خروف العيد — سلالة ممتازة',price:45000,unit:'دج',e:'🐄',b:'urgent',bl:'عاجل',vip:false,desc:'خروف ولد بلدي، عمر سنتين، وزن 60 كغ، صحة جيدة.',co:'حي',ph:'0662345678',sl:'الحاج محمد',t:'منذ يوم'},
+  {id:6,cat:'jobs',name:'مطلوب عامل بناء',price:0,unit:'مجاني',e:'💼',b:'',bl:'',vip:false,desc:'مطلوب عامل بناء بخبرة 3 سنوات في مشروع سكني.',co:'دوام كامل',ph:'0550321654',sl:'مقاولة الخير',t:'منذ يومين'},
+  {id:7,cat:'electronics',name:'تلفزيون سامسونج 55 بوصة',price:65000,unit:'دج',e:'📺',b:'',bl:'',vip:false,desc:'سامسونج 55 بوصة سمارت 4K، استعمال سنة، مع ريموت.',co:'مستعمل ممتاز',ph:'0770654321',sl:'بلال منصوري',t:'منذ 3 أيام'},
+  {id:8,cat:'real-estate',name:'قطعة أرض للبيع',price:2500000,unit:'دج',e:'🌍',b:'',bl:'',vip:true,desc:'قطعة أرض 300م² بسبدو، مسجلة، منطقة هادئة.',co:'مسجلة',ph:'0550111222',sl:'عبد الرحمان',t:'منذ 4 أيام'},
+  {id:9,cat:'clothes',name:'ملابس أطفال مستعملة',price:0,unit:'مجاني',e:'👗',b:'',bl:'',vip:false,desc:'مجموعة ملابس أطفال 2-5 سنوات، حالة جيدة، للتبرع.',co:'مستعمل جيد',ph:'0660222333',sl:'أم عمر',t:'منذ أسبوع'},
+  {id:10,cat:'services',name:'خدمة سباكة — سبدو',price:2000,unit:'دج/يوم',e:'🔧',b:'',bl:'',vip:false,desc:'سباك محترف بخبرة 10 سنوات، متاح يومياً.',co:'خدمة',ph:'0550444555',sl:'المعلم حسين',t:'منذ أسبوع'},
+  {id:11,cat:'cars',name:'دراجة نارية هوندا 125',price:180000,unit:'دج',e:'🏍️',b:'new',bl:'جديد',vip:false,desc:'هوندا CBF 125، موديل 2020، 25,000 كم.',co:'مستعمل جيد',ph:'0770333444',sl:'رضا بوعلام',t:'منذ يومين'},
+  {id:12,cat:'livestock',name:'دجاج بلدي للبيع',price:600,unit:'دج/قطعة',e:'🐓',b:'',bl:'',vip:false,desc:'دجاج بلدي تربية طبيعية، وزن 1.5 كغ.',co:'طازج',ph:'0662666777',sl:'مزرعة السعادة',t:'منذ 3 أيام'},
+];
+
+let extra=[],curCat='all',curT='n';
+const all=()=>[...ADS,...extra];
+
+function renderCats(){
+  document.getElementById('cats-grid').innerHTML=CATS.map(c=>`
+    <div class="cat ${curCat===c.id?'on':''}" onclick="filterCat('${c.id}',event)">
+      <span class="cat-i">${c.i}</span>
+      <div class="cat-n">${c.n}</div>
+      <div class="cat-c">${c.c+extra.filter(a=>a.cat===c.id).length}</div>
+    </div>`).join('');
+}
+
+function renderAds(ads){
+  const g=document.getElementById('ads-grid');
+  const e=document.getElementById('empty');
+  if(!ads.length){g.innerHTML='';e.style.display='block';return;}
+  e.style.display='none';
+  g.innerHTML=ads.map((a,i)=>`
+    <div class="ad ${a.vip?'vip':''}" style="animation-delay:${i*0.04}s" onclick="openAd(${a.id})">
+      <div class="ad-top">
+        ${a.e}
+        ${a.vip?'<div class="badge vip-b">⭐ VIP</div>':a.b?`<div class="badge ${a.b}">${a.bl}</div>`:''}
+      </div>
+      <div class="ad-bot">
+        <div class="ad-name">${a.name}</div>
+        <div class="ad-pr ${a.unit==='مجاني'?'free':''}">${a.unit==='مجاني'?'🎁 مجاني':a.price.toLocaleString()+' '+a.unit}</div>
+        <div class="ad-foot"><span class="ad-loc">📍 سبدو</span><span class="ad-t">${a.t}</span></div>
+      </div>
+    </div>`).join('');
+}
+
+function filterCat(id,e){
+  curCat=id;
+  const cat=CATS.find(c=>c.id===id);
+  document.getElementById('atitle').textContent=cat.i+' '+cat.n;
+  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
+  if(e) e.currentTarget.classList.add('on');
+  renderAds(all().filter(a=>a.cat===id));
+}
+
+function showAll(){
+  curCat='all';
+  document.getElementById('atitle').textContent='جميع الإعلانات';
+  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));
+  document.querySelector('.ftab').classList.add('on');
+  renderAds(all()); renderCats();
+}
+
+function filterTab(t,btn){
+  document.querySelectorAll('.ftab').forEach(x=>x.classList.remove('on'));
+  btn.classList.add('on');
+  let ads=curCat!=='all'?all().filter(a=>a.cat===curCat):all();
+  if(t==='vip') ads=ads.filter(a=>a.vip);
+  else if(t==='new') ads=ads.filter(a=>a.b==='new');
+  else if(t==='urgent') ads=ads.filter(a=>a.b==='urgent');
+  else if(t==='free') ads=ads.filter(a=>a.unit==='مجاني'||a.price===0);
+  renderAds(ads);
+}
+
+function doSearch(){
+  const q=document.getElementById('sinp').value.trim().toLowerCase();
+  if(!q){showAll();return;}
+  document.getElementById('atitle').textContent=`نتائج: "${q}"`;
+  renderAds(all().filter(a=>a.name.toLowerCase().includes(q)||a.desc.toLowerCase().includes(q)));
+}
+
+function openAd(id){
+  const a=all().find(x=>x.id===id); if(!a) return;
+  const cat=CATS.find(c=>c.id===a.cat);
+  document.getElementById('adBody').innerHTML=`
+    <div class="det-img">${a.e}</div>
+    <div class="det-title">${a.name}</div>
+    <div class="det-price">${a.unit==='مجاني'?'🎁 مجاني':a.price.toLocaleString()+' '+a.unit}</div>
+    <div class="det-desc">${a.desc}</div>
+    <div class="det-info">
+      <div class="det-row"><span class="det-lbl">القسم</span><span class="det-val">${cat?.i} ${cat?.n}</span></div>
+      <div class="det-row"><span class="det-lbl">الحالة</span><span class="det-val">${a.co}</span></div>
+      <div class="det-row"><span class="det-lbl">الموقع</span><span class="det-val">📍 سبدو</span></div>
+      <div class="det-row"><span class="det-lbl">البائع</span><span class="det-val">${a.sl}</span></div>
+      <div class="det-row"><span class="det-lbl">النشر</span><span class="det-val">${a.t}</span></div>
+    </div>
+    <button class="call-btn" onclick="window.location.href='tel:${a.ph}'">📞 اتصل بالبائع</button>
+    <button class="wa-btn" onclick="window.open('https://wa.me/213${a.ph.substring(1)}?text='+encodeURIComponent('مرحباً، رأيت إعلانك عن: ${a.name} في سوق سبدو'))">💬 واتساب</button>`;
+  document.getElementById('adM').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+
+function openPost(){
+  document.getElementById('pform').style.display='block';
+  document.getElementById('suc').style.display='none';
+  document.getElementById('postM').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+
+function closeM(id){ document.getElementById(id).classList.remove('on'); document.body.style.overflow=''; }
+function closeOv(e,id){ if(e.target.classList.contains('overlay')) closeM(id); }
+
+function pickT(t){
+  curT=t;
+  document.getElementById('tn').className='tcard'+(t==='n'?' on-n':'');
+  document.getElementById('tv').className='tcard'+(t==='v'?' on-v':'');
+}
+
+function handleMedia(e,type){
+  if(type==='photo'){
+    const files=Array.from(e.target.files).slice(0,5);
+    const preview=document.getElementById('photo-preview');
+    preview.innerHTML='';
+    files.forEach(file=>{
+      const reader=new FileReader();
+      reader.onload=ev=>{
+        const img=document.createElement('img');
+        img.src=ev.target.result;
+        img.className='photo-thumb';
+        preview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  } else {
+    const file=e.target.files[0];
+    if(file) document.getElementById('video-preview').innerHTML=`<div class="video-preview">✅ تم اختيار: ${file.name}</div>`;
+  }
+}
+
+function submit(){
+  const cat=document.getElementById('fc').value;
+  const title=document.getElementById('ft').value.trim();
+  const price=document.getElementById('fp').value;
+  const desc=document.getElementById('fd').value.trim();
+  const phone=document.getElementById('fph').value.trim();
+  const cond=document.getElementById('fco').value;
+  if(!cat||!title||!desc||!phone){alert('يرجى ملء جميع الحقول المطلوبة *');return;}
+  const isVip=curT==='v';
+  const msg=`🆕 إعلان جديد — سوق سبدو\n${isVip?'⭐ مميز VIP (500 دج)':'📋 عادي (مجاني)'}\n━━━━━━━━━━━━\n📌 ${cat}\n📝 ${title}\n💰 ${price||'مجاني'} دج\n📋 ${desc}\n🔧 ${cond}\n📞 ${phone}\n━━━━━━━━━━━━\n✅ للموافقة والنشر`;
+  window.open('https://wa.me/213663319735?text='+encodeURIComponent(msg));
+  document.getElementById('pform').style.display='none';
+  document.getElementById('suc').style.display='block';
+  setTimeout(()=>{closeM('postM');showAll();},3000);
+  ['fc','ft','fp','fd','fph'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('photo-preview').innerHTML='';
+  document.getElementById('video-preview').innerHTML='';
+  pickT('n');
+}
+
+renderCats(); renderAds(all());
+</script>
+</body>
+</html>
