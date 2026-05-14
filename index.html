@@ -442,11 +442,13 @@ document.addEventListener('firebase-ready',async function(){
       if(document.getElementById('admin-panel').classList.contains('on'))renderPending();
     });        const commQ = query(collection(db, 'comments'));
         onSnapshot(commQ, (snapshot) => {
-            window.adComments = {};
+           adComments = {};
+
             snapshot.forEach((doc) => {
-                const d = doc.data();
-                if (!window.adComments[d.adId]) window.adComments[d.adId] = [];
-                window.adComments[d.adId].push({ text: d.text });
+                if (!adComments[d.adId])
+adComments[d.adId].push({text:d.text,time:d.time});
+
+
             });
         });
 
