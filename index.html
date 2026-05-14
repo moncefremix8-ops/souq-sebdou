@@ -440,16 +440,17 @@ document.addEventListener('firebase-ready',async function(){
       snapshot.forEach((doc)=>{const d=doc.data();if(d.status==='pending')pendingAds.push({...d,fbId:doc.id});});
       updateAdminBadge();
       if(document.getElementById('admin-panel').classList.contains('on'))renderPending();
-    });
-        const commQ = query(collection(db, 'comments'));
-    onSnapshot(commQ, (snapshot) => {
-        adComments = {};
-        snapshot.forEach((doc) => {
-            const d = doc.data();
-            if (!adComments[d.adId]) adComments[d.adId] = [];
-            adComments[d.adId].push({ text: d.text, timestamp: d.timestamp });
+    });        const commQ = query(collection(db, 'comments'));
+        onSnapshot(commQ, (snapshot) => {
+            window.adComments = {};
+            snapshot.forEach((doc) => {
+                const d = doc.data();
+                if (!window.adComments[d.adId]) window.adComments[d.adId] = [];
+                window.adComments[d.adId].push({ text: d.text });
+            });
         });
-    });
+
+
 
 
   }catch(e){console.log('Firebase error:',e);}
