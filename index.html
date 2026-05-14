@@ -441,6 +441,16 @@ document.addEventListener('firebase-ready',async function(){
       updateAdminBadge();
       if(document.getElementById('admin-panel').classList.contains('on'))renderPending();
     });
+    const commQ=query(collection(db,'comments'),orderBy('createdAt','asc'));
+onSnapshot(commQ,(snapshot)=>{
+  adComments={};
+  snapshot.forEach((doc)=>{
+    const d=doc.data();
+    if(!adComments[d.adId])adComments[d.adId]=[];
+    adComments[d.adId].push({text:d.text,time:d.time});
+  });
+});
+
   }catch(e){console.log('Firebase error:',e);}
 });
 
