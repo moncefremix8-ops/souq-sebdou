@@ -365,7 +365,8 @@ function toggleLike(id){const liked=localStorage.getItem('liked_'+id)==='1';cons
 
 function shareAd(id,title){if(navigator.share){navigator.share({title:'سوق سبدو — '+title,url:window.location.href});}else{window.open('https://wa.me/?text='+encodeURIComponent('🛍️ '+title+'\nسوق سبدو\n'+window.location.href));}}
 
-function sendComment(id,title){const text=document.getElementById('ct-'+id).value.trim();if(!text){alert('يرجى كتابة تعليقك');return;}const t=new Date().getHours()+':'+String(new Date().getMinutes()).padStart(2,'0');if(!adComments[id])adComments[id]=[];adComments[id].push({text,time:t});const cl=document.getElementById('cl-'+id);if(cl)cl.innerHTML=adComments[id].map(c=>'<div class="comment"><span class="comment-time">'+c.time+'</span><div class="comment-text">'+c.text+'</div></div>').join('');const chdr=document.getElementById('chdr-'+id);if(chdr)chdr.textContent='💬 التعليقات ('+adComments[id].length+')';document.getElementById('ct-'+id).value='';}
+async function sendComment(id,title){const text=document.getElementById('ct-'+id).value.trim();if(!text){alert('يرجى كتابة تعليقك');return;}const t=new Date().getHours()+':'+String(new Date().getMinutes()).padStart(2,'0');const comment={text,time:t,adId:id};if(!adComments[id])adComments[id]=[];adComments[id].push(comment);if(window.db&&window.fbFunctions){try{await window.fbFunctions.addDoc(window.fbFunctions.collection(window.db,'comments'),{...comment,createdAt:window.fbFunctions.serverTimestamp()});}catch(e){console.log(e);}}
+
 
 function closeM(id){document.getElementById(id).classList.remove('on');document.body.style.overflow='';}
 function closeOv(e,id){if(e.target.classList.contains('overlay'))closeM(id);}
